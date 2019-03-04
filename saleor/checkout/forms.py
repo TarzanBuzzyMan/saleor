@@ -18,7 +18,7 @@ from ..shipping.utils import get_shipping_price_estimate
 from .models import Cart
 
 
-class QuantityField(forms.IntegerField):
+class QuantityField(forms.DecimalField):
     """A specialized integer field with initial quantity and min/max values."""
 
     def __init__(self, **kwargs):

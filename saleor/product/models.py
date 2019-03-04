@@ -202,10 +202,10 @@ class ProductVariant(models.Model):
     attributes = HStoreField(default=dict, blank=True)
     images = models.ManyToManyField('ProductImage', through='VariantImage')
     track_inventory = models.BooleanField(default=True)
-    quantity = models.IntegerField(
+    quantity = models.DecimalField(max_digits=10, decimal_places=2,
         validators=[MinValueValidator(0)], default=Decimal(1))
-    quantity_allocated = models.IntegerField(
-        validators=[MinValueValidator(0)], default=Decimal(0))
+    quantity_allocated = models.DecimalField(max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(0)], default=Decimal(0.0))
     cost_price = MoneyField(
         currency=settings.DEFAULT_CURRENCY,
         max_digits=settings.DEFAULT_MAX_DIGITS,

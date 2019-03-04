@@ -557,19 +557,28 @@ if SENTRY_DSN:
 SERIALIZATION_MODULES = {
     'json': 'saleor.core.utils.json_serializer'}
 
-
 DUMMY = 'dummy'
+ONACCOUNT = 'onaccount'
 BRAINTREE = 'braintree'
 RAZORPAY = 'razorpay'
 STRIPE = 'stripe'
 
 CHECKOUT_PAYMENT_GATEWAYS = {
-    DUMMY: pgettext_lazy('Payment method name', 'Dummy gateway')}
+    DUMMY: pgettext_lazy('Payment method name', 'Dummy gateway'),
+    ONACCOUNT: pgettext_lazy('Value A OnAccount', 'Value B OnAccount')
+}
 
 PAYMENT_GATEWAYS = {
     DUMMY: {
         'module': 'saleor.payment.gateways.dummy',
-        'connection_params': {}},
+        'connection_params': {}
+    },
+    ONACCOUNT: {
+        'module': 'saleor.payment.gateways.onaccount',
+        'connection_params': {
+
+        }
+    },
     BRAINTREE: {
         'module': 'saleor.payment.gateways.braintree',
         'connection_params': {

@@ -289,9 +289,9 @@ class OrderLine(models.Model):
         max_length=386, default='', blank=True)
     product_sku = models.CharField(max_length=32)
     is_shipping_required = models.BooleanField()
-    quantity = models.IntegerField(validators=[MinValueValidator(1)])
-    quantity_fulfilled = models.IntegerField(
-        validators=[MinValueValidator(0)], default=0)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(1)])
+    quantity_fulfilled = models.DecimalField(max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(0)], default=0.0)
     unit_price_net = MoneyField(
         currency=settings.DEFAULT_CURRENCY,
         max_digits=settings.DEFAULT_MAX_DIGITS,

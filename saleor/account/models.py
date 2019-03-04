@@ -123,6 +123,8 @@ class User(PermissionsMixin, AbstractBaseUser):
     default_billing_address = models.ForeignKey(
         Address, related_name='+', null=True, blank=True,
         on_delete=models.SET_NULL)
+    next_of_kin = models.ManyToManyField(
+        Address, blank=True, related_name='user_next_of_kin')
 
     USERNAME_FIELD = 'email'
 

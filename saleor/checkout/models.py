@@ -45,7 +45,7 @@ class Cart(models.Model):
         on_delete=models.CASCADE)
     email = models.EmailField()
     token = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     billing_address = models.ForeignKey(
         Address, related_name='+', editable=False, null=True,
         on_delete=models.SET_NULL)
@@ -105,7 +105,7 @@ class Cart(models.Model):
         # Cannot use `sum` as it parses an empty Weight to an int
         weights = zero_weight()
         for line in self:
-            weights += line.variant.get_weight() * line.quantity
+            weights += line.variant.get_weight() * float(line.quantity)
         return weights
 
     def get_line(self, variant):
@@ -130,7 +130,7 @@ class CartLine(models.Model):
         Cart, related_name='lines', on_delete=models.CASCADE)
     variant = models.ForeignKey(
         'product.ProductVariant', related_name='+', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    quantity = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(1)])
     data = JSONField(blank=True, default=dict)
 
     class Meta:
